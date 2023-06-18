@@ -1,0 +1,29 @@
+
+** Conflict (reduce/reduce) in state 25.
+** Tokens involved: THEN SEMISEMI RPAR IN ELSE
+** The following explanations concentrate on token SEMISEMI.
+** This state is reached from toplevel after reading:
+
+atomic_expr
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+toplevel 
+expr SEMISEMI // lookahead token appears
+(?)
+
+** In state 25, looking ahead at SEMISEMI, reducing production
+** bool_expr -> atomic_expr
+** is permitted because of the following sub-derivation:
+
+bool_expr // lookahead token is inherited
+atomic_expr . 
+
+** In state 25, looking ahead at SEMISEMI, reducing production
+** factor_expr -> atomic_expr
+** is permitted because of the following sub-derivation:
+
+arith_expr // lookahead token is inherited
+factor_expr // lookahead token is inherited
+atomic_expr . 

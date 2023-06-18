@@ -1,0 +1,626 @@
+State 0:
+## Known stack suffix:
+##
+## LR(1) items:
+toplevel' -> . toplevel [ # ]
+## Transitions:
+-- On LPAR shift to state 1
+-- On LET shift to state 41
+-- On INT shift to state 6
+-- On IF shift to state 7
+-- On ID shift to state 8
+-- On BOOL shift to state 9
+-- On toplevel shift to state 46
+-- On factor_expr shift to state 10
+-- On expr shift to state 47
+-- On bool_expr shift to state 20
+-- On atomic_expr shift to state 25
+-- On arith_expr shift to state 26
+## Reductions:
+
+State 1:
+## Known stack suffix:
+## LPAR
+## LR(1) items:
+atomic_expr -> LPAR . expr RPAR [ TIMES THEN SEMISEMI RPAR PLUS OR MINUS LT IN EQ ELSE DIV AND ]
+## Transitions:
+-- On LPAR shift to state 1
+-- On LET shift to state 2
+-- On INT shift to state 6
+-- On IF shift to state 7
+-- On ID shift to state 8
+-- On BOOL shift to state 9
+-- On factor_expr shift to state 10
+-- On expr shift to state 39
+-- On bool_expr shift to state 20
+-- On atomic_expr shift to state 25
+-- On arith_expr shift to state 26
+## Reductions:
+
+State 2:
+## Known stack suffix:
+## LET
+## LR(1) items:
+expr -> LET . var EQ expr IN expr [ THEN SEMISEMI RPAR IN ELSE ]
+## Transitions:
+-- On ID shift to state 3
+-- On var shift to state 4
+## Reductions:
+
+State 3:
+## Known stack suffix:
+## ID
+## LR(1) items:
+var -> ID . [ EQ ]
+## Transitions:
+## Reductions:
+-- On EQ
+--   reduce production var -> ID
+
+State 4:
+## Known stack suffix:
+## LET var
+## LR(1) items:
+expr -> LET var . EQ expr IN expr [ THEN SEMISEMI RPAR IN ELSE ]
+## Transitions:
+-- On EQ shift to state 5
+## Reductions:
+
+State 5:
+## Known stack suffix:
+## LET var EQ
+## LR(1) items:
+expr -> LET var EQ . expr IN expr [ THEN SEMISEMI RPAR IN ELSE ]
+## Transitions:
+-- On LPAR shift to state 1
+-- On LET shift to state 2
+-- On INT shift to state 6
+-- On IF shift to state 7
+-- On ID shift to state 8
+-- On BOOL shift to state 9
+-- On factor_expr shift to state 10
+-- On expr shift to state 36
+-- On bool_expr shift to state 20
+-- On atomic_expr shift to state 25
+-- On arith_expr shift to state 26
+## Reductions:
+
+State 6:
+## Known stack suffix:
+## INT
+## LR(1) items:
+atomic_expr -> INT . [ TIMES THEN SEMISEMI RPAR PLUS OR MINUS LT IN EQ ELSE DIV AND ]
+## Transitions:
+## Reductions:
+-- On TIMES THEN SEMISEMI RPAR PLUS OR MINUS LT IN EQ ELSE DIV AND
+--   reduce production atomic_expr -> INT
+
+State 7:
+## Known stack suffix:
+## IF
+## LR(1) items:
+expr -> IF . expr THEN expr ELSE expr [ THEN SEMISEMI RPAR IN ELSE ]
+## Transitions:
+-- On LPAR shift to state 1
+-- On LET shift to state 2
+-- On INT shift to state 6
+-- On IF shift to state 7
+-- On ID shift to state 8
+-- On BOOL shift to state 9
+-- On factor_expr shift to state 10
+-- On expr shift to state 15
+-- On bool_expr shift to state 20
+-- On atomic_expr shift to state 25
+-- On arith_expr shift to state 26
+## Reductions:
+
+State 8:
+## Known stack suffix:
+## ID
+## LR(1) items:
+atomic_expr -> ID . [ TIMES THEN SEMISEMI RPAR PLUS OR MINUS LT IN EQ ELSE DIV AND ]
+## Transitions:
+## Reductions:
+-- On TIMES THEN SEMISEMI RPAR PLUS OR MINUS LT IN EQ ELSE DIV AND
+--   reduce production atomic_expr -> ID
+
+State 9:
+## Known stack suffix:
+## BOOL
+## LR(1) items:
+atomic_expr -> BOOL . [ TIMES THEN SEMISEMI RPAR PLUS OR MINUS LT IN EQ ELSE DIV AND ]
+## Transitions:
+## Reductions:
+-- On TIMES THEN SEMISEMI RPAR PLUS OR MINUS LT IN EQ ELSE DIV AND
+--   reduce production atomic_expr -> BOOL
+
+State 10:
+## Known stack suffix:
+## factor_expr
+## LR(1) items:
+arith_expr -> factor_expr . [ THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE ]
+factor_expr -> factor_expr . TIMES atomic_expr [ TIMES THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE DIV ]
+factor_expr -> factor_expr . DIV atomic_expr [ TIMES THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE DIV ]
+## Transitions:
+-- On TIMES shift to state 11
+-- On DIV shift to state 13
+## Reductions:
+-- On THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE
+--   reduce production arith_expr -> factor_expr
+
+State 11:
+## Known stack suffix:
+## factor_expr TIMES
+## LR(1) items:
+factor_expr -> factor_expr TIMES . atomic_expr [ TIMES THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE DIV ]
+## Transitions:
+-- On LPAR shift to state 1
+-- On INT shift to state 6
+-- On ID shift to state 8
+-- On BOOL shift to state 9
+-- On atomic_expr shift to state 12
+## Reductions:
+
+State 12:
+## Known stack suffix:
+## factor_expr TIMES atomic_expr
+## LR(1) items:
+factor_expr -> factor_expr TIMES atomic_expr . [ TIMES THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE DIV ]
+## Transitions:
+## Reductions:
+-- On TIMES THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE DIV
+--   reduce production factor_expr -> factor_expr TIMES atomic_expr
+
+State 13:
+## Known stack suffix:
+## factor_expr DIV
+## LR(1) items:
+factor_expr -> factor_expr DIV . atomic_expr [ TIMES THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE DIV ]
+## Transitions:
+-- On LPAR shift to state 1
+-- On INT shift to state 6
+-- On ID shift to state 8
+-- On BOOL shift to state 9
+-- On atomic_expr shift to state 14
+## Reductions:
+
+State 14:
+## Known stack suffix:
+## factor_expr DIV atomic_expr
+## LR(1) items:
+factor_expr -> factor_expr DIV atomic_expr . [ TIMES THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE DIV ]
+## Transitions:
+## Reductions:
+-- On TIMES THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE DIV
+--   reduce production factor_expr -> factor_expr DIV atomic_expr
+
+State 15:
+## Known stack suffix:
+## IF expr
+## LR(1) items:
+expr -> IF expr . THEN expr ELSE expr [ THEN SEMISEMI RPAR IN ELSE ]
+## Transitions:
+-- On THEN shift to state 16
+## Reductions:
+
+State 16:
+## Known stack suffix:
+## IF expr THEN
+## LR(1) items:
+expr -> IF expr THEN . expr ELSE expr [ THEN SEMISEMI RPAR IN ELSE ]
+## Transitions:
+-- On LPAR shift to state 1
+-- On LET shift to state 2
+-- On INT shift to state 6
+-- On IF shift to state 7
+-- On ID shift to state 8
+-- On BOOL shift to state 9
+-- On factor_expr shift to state 10
+-- On expr shift to state 17
+-- On bool_expr shift to state 20
+-- On atomic_expr shift to state 25
+-- On arith_expr shift to state 26
+## Reductions:
+
+State 17:
+## Known stack suffix:
+## IF expr THEN expr
+## LR(1) items:
+expr -> IF expr THEN expr . ELSE expr [ THEN SEMISEMI RPAR IN ELSE ]
+## Transitions:
+-- On ELSE shift to state 18
+## Reductions:
+
+State 18:
+## Known stack suffix:
+## IF expr THEN expr ELSE
+## LR(1) items:
+expr -> IF expr THEN expr ELSE . expr [ THEN SEMISEMI RPAR IN ELSE ]
+## Transitions:
+-- On LPAR shift to state 1
+-- On LET shift to state 2
+-- On INT shift to state 6
+-- On IF shift to state 7
+-- On ID shift to state 8
+-- On BOOL shift to state 9
+-- On factor_expr shift to state 10
+-- On expr shift to state 19
+-- On bool_expr shift to state 20
+-- On atomic_expr shift to state 25
+-- On arith_expr shift to state 26
+## Reductions:
+
+State 19:
+## Known stack suffix:
+## IF expr THEN expr ELSE expr
+## LR(1) items:
+expr -> IF expr THEN expr ELSE expr . [ THEN SEMISEMI RPAR IN ELSE ]
+## Transitions:
+## Reductions:
+-- On THEN SEMISEMI RPAR IN ELSE
+--   reduce production expr -> IF expr THEN expr ELSE expr
+
+State 20:
+## Known stack suffix:
+## bool_expr
+## LR(1) items:
+bool_expr -> bool_expr . AND atomic_expr [ THEN SEMISEMI RPAR OR IN ELSE AND ]
+bool_expr -> bool_expr . OR atomic_expr [ THEN SEMISEMI RPAR OR IN ELSE AND ]
+expr -> bool_expr . [ THEN SEMISEMI RPAR IN ELSE ]
+## Transitions:
+-- On OR shift to state 21
+-- On AND shift to state 23
+## Reductions:
+-- On THEN SEMISEMI RPAR IN ELSE
+--   reduce production expr -> bool_expr
+
+State 21:
+## Known stack suffix:
+## bool_expr OR
+## LR(1) items:
+bool_expr -> bool_expr OR . atomic_expr [ THEN SEMISEMI RPAR OR IN ELSE AND ]
+## Transitions:
+-- On LPAR shift to state 1
+-- On INT shift to state 6
+-- On ID shift to state 8
+-- On BOOL shift to state 9
+-- On atomic_expr shift to state 22
+## Reductions:
+
+State 22:
+## Known stack suffix:
+## bool_expr OR atomic_expr
+## LR(1) items:
+bool_expr -> bool_expr OR atomic_expr . [ THEN SEMISEMI RPAR OR IN ELSE AND ]
+## Transitions:
+## Reductions:
+-- On THEN SEMISEMI RPAR OR IN ELSE AND
+--   reduce production bool_expr -> bool_expr OR atomic_expr
+
+State 23:
+## Known stack suffix:
+## bool_expr AND
+## LR(1) items:
+bool_expr -> bool_expr AND . atomic_expr [ THEN SEMISEMI RPAR OR IN ELSE AND ]
+## Transitions:
+-- On LPAR shift to state 1
+-- On INT shift to state 6
+-- On ID shift to state 8
+-- On BOOL shift to state 9
+-- On atomic_expr shift to state 24
+## Reductions:
+
+State 24:
+## Known stack suffix:
+## bool_expr AND atomic_expr
+## LR(1) items:
+bool_expr -> bool_expr AND atomic_expr . [ THEN SEMISEMI RPAR OR IN ELSE AND ]
+## Transitions:
+## Reductions:
+-- On THEN SEMISEMI RPAR OR IN ELSE AND
+--   reduce production bool_expr -> bool_expr AND atomic_expr
+
+State 25:
+## Known stack suffix:
+## atomic_expr
+## LR(1) items:
+bool_expr -> atomic_expr . [ THEN SEMISEMI RPAR OR IN ELSE AND ]
+factor_expr -> atomic_expr . [ TIMES THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE DIV ]
+## Transitions:
+## Reductions:
+-- On THEN SEMISEMI RPAR OR IN ELSE AND
+--   reduce production bool_expr -> atomic_expr
+-- On TIMES THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE DIV
+--   reduce production factor_expr -> atomic_expr
+** Conflict on THEN SEMISEMI RPAR IN ELSE
+
+State 26:
+## Known stack suffix:
+## arith_expr
+## LR(1) items:
+arith_expr -> arith_expr . PLUS factor_expr [ THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE ]
+arith_expr -> arith_expr . MINUS factor_expr [ THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE ]
+expr -> arith_expr . EQ arith_expr [ THEN SEMISEMI RPAR IN ELSE ]
+expr -> arith_expr . LT arith_expr [ THEN SEMISEMI RPAR IN ELSE ]
+expr -> arith_expr . [ THEN SEMISEMI RPAR IN ELSE ]
+## Transitions:
+-- On PLUS shift to state 27
+-- On MINUS shift to state 30
+-- On LT shift to state 32
+-- On EQ shift to state 34
+## Reductions:
+-- On THEN SEMISEMI RPAR IN ELSE
+--   reduce production expr -> arith_expr
+
+State 27:
+## Known stack suffix:
+## arith_expr PLUS
+## LR(1) items:
+arith_expr -> arith_expr PLUS . factor_expr [ THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE ]
+## Transitions:
+-- On LPAR shift to state 1
+-- On INT shift to state 6
+-- On ID shift to state 8
+-- On BOOL shift to state 9
+-- On factor_expr shift to state 28
+-- On atomic_expr shift to state 29
+## Reductions:
+
+State 28:
+## Known stack suffix:
+## arith_expr PLUS factor_expr
+## LR(1) items:
+arith_expr -> arith_expr PLUS factor_expr . [ THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE ]
+factor_expr -> factor_expr . TIMES atomic_expr [ TIMES THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE DIV ]
+factor_expr -> factor_expr . DIV atomic_expr [ TIMES THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE DIV ]
+## Transitions:
+-- On TIMES shift to state 11
+-- On DIV shift to state 13
+## Reductions:
+-- On THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE
+--   reduce production arith_expr -> arith_expr PLUS factor_expr
+
+State 29:
+## Known stack suffix:
+## atomic_expr
+## LR(1) items:
+factor_expr -> atomic_expr . [ TIMES THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE DIV ]
+## Transitions:
+## Reductions:
+-- On TIMES THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE DIV
+--   reduce production factor_expr -> atomic_expr
+
+State 30:
+## Known stack suffix:
+## arith_expr MINUS
+## LR(1) items:
+arith_expr -> arith_expr MINUS . factor_expr [ THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE ]
+## Transitions:
+-- On LPAR shift to state 1
+-- On INT shift to state 6
+-- On ID shift to state 8
+-- On BOOL shift to state 9
+-- On factor_expr shift to state 31
+-- On atomic_expr shift to state 29
+## Reductions:
+
+State 31:
+## Known stack suffix:
+## arith_expr MINUS factor_expr
+## LR(1) items:
+arith_expr -> arith_expr MINUS factor_expr . [ THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE ]
+factor_expr -> factor_expr . TIMES atomic_expr [ TIMES THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE DIV ]
+factor_expr -> factor_expr . DIV atomic_expr [ TIMES THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE DIV ]
+## Transitions:
+-- On TIMES shift to state 11
+-- On DIV shift to state 13
+## Reductions:
+-- On THEN SEMISEMI RPAR PLUS MINUS LT IN EQ ELSE
+--   reduce production arith_expr -> arith_expr MINUS factor_expr
+
+State 32:
+## Known stack suffix:
+## arith_expr LT
+## LR(1) items:
+expr -> arith_expr LT . arith_expr [ THEN SEMISEMI RPAR IN ELSE ]
+## Transitions:
+-- On LPAR shift to state 1
+-- On INT shift to state 6
+-- On ID shift to state 8
+-- On BOOL shift to state 9
+-- On factor_expr shift to state 10
+-- On atomic_expr shift to state 29
+-- On arith_expr shift to state 33
+## Reductions:
+
+State 33:
+## Known stack suffix:
+## arith_expr LT arith_expr
+## LR(1) items:
+arith_expr -> arith_expr . PLUS factor_expr [ THEN SEMISEMI RPAR PLUS MINUS IN ELSE ]
+arith_expr -> arith_expr . MINUS factor_expr [ THEN SEMISEMI RPAR PLUS MINUS IN ELSE ]
+expr -> arith_expr LT arith_expr . [ THEN SEMISEMI RPAR IN ELSE ]
+## Transitions:
+-- On PLUS shift to state 27
+-- On MINUS shift to state 30
+## Reductions:
+-- On THEN SEMISEMI RPAR IN ELSE
+--   reduce production expr -> arith_expr LT arith_expr
+
+State 34:
+## Known stack suffix:
+## arith_expr EQ
+## LR(1) items:
+expr -> arith_expr EQ . arith_expr [ THEN SEMISEMI RPAR IN ELSE ]
+## Transitions:
+-- On LPAR shift to state 1
+-- On INT shift to state 6
+-- On ID shift to state 8
+-- On BOOL shift to state 9
+-- On factor_expr shift to state 10
+-- On atomic_expr shift to state 29
+-- On arith_expr shift to state 35
+## Reductions:
+
+State 35:
+## Known stack suffix:
+## arith_expr EQ arith_expr
+## LR(1) items:
+arith_expr -> arith_expr . PLUS factor_expr [ THEN SEMISEMI RPAR PLUS MINUS IN ELSE ]
+arith_expr -> arith_expr . MINUS factor_expr [ THEN SEMISEMI RPAR PLUS MINUS IN ELSE ]
+expr -> arith_expr EQ arith_expr . [ THEN SEMISEMI RPAR IN ELSE ]
+## Transitions:
+-- On PLUS shift to state 27
+-- On MINUS shift to state 30
+## Reductions:
+-- On THEN SEMISEMI RPAR IN ELSE
+--   reduce production expr -> arith_expr EQ arith_expr
+
+State 36:
+## Known stack suffix:
+## LET var EQ expr
+## LR(1) items:
+expr -> LET var EQ expr . IN expr [ THEN SEMISEMI RPAR IN ELSE ]
+## Transitions:
+-- On IN shift to state 37
+## Reductions:
+
+State 37:
+## Known stack suffix:
+## LET var EQ expr IN
+## LR(1) items:
+expr -> LET var EQ expr IN . expr [ THEN SEMISEMI RPAR IN ELSE ]
+## Transitions:
+-- On LPAR shift to state 1
+-- On LET shift to state 2
+-- On INT shift to state 6
+-- On IF shift to state 7
+-- On ID shift to state 8
+-- On BOOL shift to state 9
+-- On factor_expr shift to state 10
+-- On expr shift to state 38
+-- On bool_expr shift to state 20
+-- On atomic_expr shift to state 25
+-- On arith_expr shift to state 26
+## Reductions:
+
+State 38:
+## Known stack suffix:
+## LET var EQ expr IN expr
+## LR(1) items:
+expr -> LET var EQ expr IN expr . [ THEN SEMISEMI RPAR IN ELSE ]
+## Transitions:
+## Reductions:
+-- On THEN SEMISEMI RPAR IN ELSE
+--   reduce production expr -> LET var EQ expr IN expr
+
+State 39:
+## Known stack suffix:
+## LPAR expr
+## LR(1) items:
+atomic_expr -> LPAR expr . RPAR [ TIMES THEN SEMISEMI RPAR PLUS OR MINUS LT IN EQ ELSE DIV AND ]
+## Transitions:
+-- On RPAR shift to state 40
+## Reductions:
+
+State 40:
+## Known stack suffix:
+## LPAR expr RPAR
+## LR(1) items:
+atomic_expr -> LPAR expr RPAR . [ TIMES THEN SEMISEMI RPAR PLUS OR MINUS LT IN EQ ELSE DIV AND ]
+## Transitions:
+## Reductions:
+-- On TIMES THEN SEMISEMI RPAR PLUS OR MINUS LT IN EQ ELSE DIV AND
+--   reduce production atomic_expr -> LPAR expr RPAR
+
+State 41:
+## Known stack suffix:
+## LET
+## LR(1) items:
+expr -> LET . var EQ expr IN expr [ SEMISEMI ]
+toplevel -> LET . var EQ expr SEMISEMI [ # ]
+## Transitions:
+-- On ID shift to state 3
+-- On var shift to state 42
+## Reductions:
+
+State 42:
+## Known stack suffix:
+## LET var
+## LR(1) items:
+expr -> LET var . EQ expr IN expr [ SEMISEMI ]
+toplevel -> LET var . EQ expr SEMISEMI [ # ]
+## Transitions:
+-- On EQ shift to state 43
+## Reductions:
+
+State 43:
+## Known stack suffix:
+## LET var EQ
+## LR(1) items:
+expr -> LET var EQ . expr IN expr [ SEMISEMI ]
+toplevel -> LET var EQ . expr SEMISEMI [ # ]
+## Transitions:
+-- On LPAR shift to state 1
+-- On LET shift to state 2
+-- On INT shift to state 6
+-- On IF shift to state 7
+-- On ID shift to state 8
+-- On BOOL shift to state 9
+-- On factor_expr shift to state 10
+-- On expr shift to state 44
+-- On bool_expr shift to state 20
+-- On atomic_expr shift to state 25
+-- On arith_expr shift to state 26
+## Reductions:
+
+State 44:
+## Known stack suffix:
+## LET var EQ expr
+## LR(1) items:
+expr -> LET var EQ expr . IN expr [ SEMISEMI ]
+toplevel -> LET var EQ expr . SEMISEMI [ # ]
+## Transitions:
+-- On SEMISEMI shift to state 45
+-- On IN shift to state 37
+## Reductions:
+
+State 45:
+## Known stack suffix:
+## LET var EQ expr SEMISEMI
+## LR(1) items:
+toplevel -> LET var EQ expr SEMISEMI . [ # ]
+## Transitions:
+## Reductions:
+-- On #
+--   reduce production toplevel -> LET var EQ expr SEMISEMI
+
+State 46:
+## Known stack suffix:
+## toplevel
+## LR(1) items:
+toplevel' -> toplevel . [ # ]
+## Transitions:
+## Reductions:
+-- On #
+--   accept toplevel
+
+State 47:
+## Known stack suffix:
+## expr
+## LR(1) items:
+toplevel -> expr . SEMISEMI [ # ]
+## Transitions:
+-- On SEMISEMI shift to state 48
+## Reductions:
+
+State 48:
+## Known stack suffix:
+## expr SEMISEMI
+## LR(1) items:
+toplevel -> expr SEMISEMI . [ # ]
+## Transitions:
+## Reductions:
+-- On #
+--   reduce production toplevel -> expr SEMISEMI
+

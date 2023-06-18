@@ -1,0 +1,30 @@
+(** @canonical Dune__exe.ConstraintSolver *)
+module ConstraintSolver = Dune__exe__ConstraintSolver
+
+
+(** @canonical Dune__exe.Eval *)
+module Eval = Dune__exe__Eval
+
+
+(** @canonical Dune__exe.Infer *)
+module Infer = Dune__exe__Infer
+
+
+(** @canonical Dune__exe.Lexer *)
+module Lexer = Dune__exe__Lexer
+
+
+(** @canonical Dune__exe.Main *)
+module Main = Dune__exe__Main
+
+
+(** @canonical Dune__exe.Parser *)
+module Parser = Dune__exe__Parser
+
+
+(** @canonical Dune__exe.Syntax *)
+module Syntax = Dune__exe__Syntax
+
+
+(** @canonical Dune__exe.TySyntax *)
+module TySyntax = Dune__exe__TySyntax
